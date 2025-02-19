@@ -1,5 +1,5 @@
 import funcProg1.Movie;
-import funcProg1.MovieQuestions;
+import funcProg1.Movie;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
@@ -12,7 +12,7 @@ public class MovieQuestionsTest {
 		List<Movie> testMovies = List.of(
 
 		);
-		assertEquals(3, MovieQuestions.amountOfMovies(testMovies));
+		assertEquals(3, Movie.amountOfMovies(testMovies));
 
 	}
 

@@ -2,18 +2,20 @@ package funcProg1;
 
 import org.bson.Document;
 
+import java.util.Collection;
+import java.util.Comparator;
 import java.util.List;
 
 public class Movie {
-    private String id;
-    private String title;
-    private int year;
-    private int runtime;
-    private List<String> genres;
-    private String director;
-    private List<String> cast;
-    private double imdbRating;
-    private List<String> languages;
+    private final String id;
+    private final  String title;
+    private final  int year;
+    private final  int runtime;
+    private final  List<String> genres;
+    private final  String director;
+    private final  List<String> cast;
+    private final  double imdbRating;
+    private final  List<String> languages;
 
     // Constructor
     public Movie(String id, String title, int year, List<String> genres, String director, List<String> cast, double imdbRating, List<String> languages, int runtime) {
@@ -21,11 +23,11 @@ public class Movie {
         this.title = title;
         this.year = year;
         this.runtime = runtime;
-        this.genres = genres;
+        this.genres = genres != null ? List.copyOf(genres) : List.of();
         this.director = director;
-        this.cast = cast;
+        this.cast = cast != null ? List.copyOf(cast) : List.of();
         this.imdbRating = imdbRating;
-        this.languages = languages;
+        this.languages = languages != null ? List.copyOf(languages) : List.of();
     }
 
     // Method to convert MongoDB document to FuncProg1.Movie object
@@ -42,6 +44,43 @@ public class Movie {
                 doc.getInteger("runtime", 0)
         );
     }
+
+
+
+    //antal filmer 1975
+    public static int amountOfMovies(List<Movie> movieList){
+        return (int) movieList.stream().count();
+    }
+
+    //Film med högst runtime
+    public static int highestRunTime(List<Movie> movieList){
+        return movieList.stream().max(Comparator.comparingInt(Movie :: getRuntime)).map(Movie :: getRuntime).orElse(0);
+
+    }
+    //Antal unika genrer
+    public static int uniqueGenres(List<Movie> movieList){
+
+        return (int) movieList.stream().map(Movie :: getGenres).flatMap(Collection::stream).distinct().count();
+
+    }
+    //Antal unika språk
+    public static int uniqueLanguages(List<Movie> movieList){
+        return (int) movieList.stream().map(Movie :: getLanguages).flatMap(Collection::stream).distinct().count();
+    }
+
+    //Minst antal skådisar listade
+    public static String leastAmountOfActors(List<Movie> movieList){
+        return movieList.stream().min(Comparator.comparingInt(m ->m.getCast().size())).map(Movie::getTitle).orElse("");
+    }
+
+    //skådisar i filmen med högst IMDB-rating
+    public static String highestIMDBRatingActors(List<Movie> movieList){
+        return movieList.stream().max(Comparator.comparingDouble(Movie::getImdbRating)).map(m ->String.join(", ",m.getCast())).orElse("");
+    }
+
+
+
+
 
     // Getters and Setters
     public String getId() { return id; }

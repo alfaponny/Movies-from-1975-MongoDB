@@ -26,26 +26,24 @@ public class MongoDBAtlasDownloadExample {
             }
 
             // Skriver ut alla filmer
-          /* for (Movie movie : movieList) {
+           /*for (Movie movie : movieList) {
                 System.out.println(movie);
             } */
 
             //Här gör du anrop till alla dina funktioner som ska skriva ut svaren på frågorna som
             //efterfrågas i uppgiften
-            int numberOfMovies = MovieQuestions.amountOfMovies(movieList);
-            System.out.println("Total amount of movies made in 1975: " + numberOfMovies);
+           // int numberOfMovies = MovieQuestions.amountOfMovies(movieList);
+            System.out.println("Total amount of movies made in 1975: " + Movie.amountOfMovies(movieList));
 
-            int highestRunTime = MovieQuestions.highestRunTime(movieList);
-            System.out.println("Highest runtime in 1975: " + highestRunTime);
+            System.out.println("Highest runtime in 1975: " + Movie.highestRunTime(movieList));
 
-            int uniqueGenres = MovieQuestions.uniqueGenres(movieList);
-            System.out.println("Unique genres in 1975: " + uniqueGenres);
+            System.out.println("Unique genres in 1975: " + Movie.uniqueGenres(movieList));
 
-            int uniqueLanguages = MovieQuestions.uniqueLanguages(movieList);
-            System.out.println("Unique languages in 1975: " + uniqueLanguages);
+            System.out.println("Unique languages in 1975: " + Movie.uniqueLanguages(movieList));
 
+            System.out.println("Least amount of actors in films of 1975: " + Movie.leastAmountOfActors(movieList));
 
-
+            System.out.println("The actors in the film with the highest ImDB-rating: " + Movie.highestIMDBRatingActors(movieList));
 
         } catch (Exception e) {
             e.printStackTrace();
