@@ -41,6 +41,10 @@ public class MongoDBAtlasDownloadExample {
             int uniqueGenres = MovieQuestions.uniqueGenres(movieList);
             System.out.println("Unique genres in 1975: " + uniqueGenres);
 
+            int uniqueLanguages = MovieQuestions.uniqueLanguages(movieList);
+            System.out.println("Unique languages in 1975: " + uniqueLanguages);
+
+
 
 
         } catch (Exception e) {

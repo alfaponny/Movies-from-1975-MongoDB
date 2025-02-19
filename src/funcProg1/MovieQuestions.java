@@ -24,6 +24,10 @@ public class MovieQuestions {
 		return (int) movieList.stream().map(Movie :: getGenres).flatMap(Collection::stream).distinct().count();
 
 	}
+	//Antal unika språk
+	public static int uniqueLanguages(List<Movie> movieList){
+		return (int) movieList.stream().map(Movie :: getLanguages).flatMap(Collection::stream).distinct().count();
+	}
 
 
 
