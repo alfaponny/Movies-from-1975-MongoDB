@@ -7,10 +7,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class MongoDBAtlasDownloadExample {
-	public MongoDBAtlasDownloadExample() {
+public class MongoDBAtlasRepository {
+	public MongoDBAtlasRepository() {
 
-		//Skriv in rätt url!
+		//url to connect to MongoDB:
 		String uri = "mongodb+srv://tempuser:SecretPassword@cluster0.xjd3w.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
 
 		try (MongoClient mongoClient = MongoClients.create(uri)) {
@@ -30,9 +30,8 @@ public class MongoDBAtlasDownloadExample {
                 System.out.println(movie);
             } */
 
-			//Här gör du anrop till alla dina funktioner som ska skriva ut svaren på frågorna som
-			//efterfrågas i uppgiften
-			// int numberOfMovies = MovieQuestions.amountOfMovies(movieList);
+
+
 			System.out.println("Total amount of movies made in 1975: " + Movie.amountOfMovies(movieList));
 
 			System.out.println("Highest runtime in 1975: " + Movie.highestRunTime(movieList));
@@ -51,6 +50,8 @@ public class MongoDBAtlasDownloadExample {
 
 			System.out.println("Duplicated titles are : " + Movie.duplicatedTitles(movieList));
 
+
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -58,6 +59,6 @@ public class MongoDBAtlasDownloadExample {
 
 	public static void main(String[] args) {
 
-		MongoDBAtlasDownloadExample m = new MongoDBAtlasDownloadExample();
+		MongoDBAtlasRepository m = new MongoDBAtlasRepository();
 	}
 }

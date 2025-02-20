@@ -2,10 +2,7 @@ package funcProg1;
 
 import org.bson.Document;
 
-import java.util.Collection;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public final class Movie { //final klass, kan inte ärvas
@@ -84,7 +81,7 @@ public final class Movie { //final klass, kan inte ärvas
 	public static String leastAmountOfActors(List<Movie> movieList) {
 
 		return movieList.stream()
-				.min(Comparator.comparingInt(m -> m.getCast().size()))
+				.min(Comparator.comparingInt(movie -> movie.getCast().size()))
 				.map(Movie::getTitle)
 				.orElse("");
 	}
@@ -94,7 +91,7 @@ public final class Movie { //final klass, kan inte ärvas
 
 		return movieList.stream()
 				.max(Comparator.comparingDouble(Movie::getImdbRating))
-				.map(m -> String.join(", ", m.getCast()))
+				.map(movie -> String.join(", ", movie.getCast()))
 				.orElse("");
 	}
 
@@ -102,18 +99,20 @@ public final class Movie { //final klass, kan inte ärvas
 	public static int amountOfActorsInMoreThanOneMovie(List<Movie> movieList) {
 
 		return (int) movieList.stream()
-				.flatMap(l -> l.getCast().stream())
-				.collect(Collectors.groupingBy(a -> a, Collectors.counting()))
-				.values().stream().filter(c -> c > 1).count();
+				.flatMap(movie -> movie.getCast().stream())
+				.collect(Collectors.groupingBy(actor -> actor, Collectors.counting()))
+				.values().stream().filter(count -> count > 1).count();
 	}
 
 	//skådespelaren som medverkat i flest filmer
 	public static String mostFrequentActor(List<Movie> movieList) {
 
-		return movieList.stream()
-				.flatMap(l -> l.getCast().stream())
-				.collect(Collectors.groupingBy(a -> a, Collectors.counting()))
-				.entrySet().stream().max(Comparator.comparingLong(Map.Entry::getValue))
+				Map<String, Long> countActors = movieList.stream()
+						.flatMap(movie -> movie.getCast().stream())
+						.collect(Collectors.groupingBy(actor -> actor, Collectors.counting()));
+
+		return countActors.entrySet().stream()
+				.max(Comparator.comparingLong(Map.Entry::getValue))
 				.map(Map.Entry::getKey).orElse("");
 	}
 
@@ -122,7 +121,7 @@ public final class Movie { //final klass, kan inte ärvas
 
 		return movieList.stream()
 				.map(Movie::getTitle)
-				.collect(Collectors.groupingBy(t -> t, Collectors.counting()))
+				.collect(Collectors.groupingBy(title -> title, Collectors.counting()))
 				.values().stream().anyMatch(count -> count > 1);
 
 	}
