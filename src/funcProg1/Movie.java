@@ -50,15 +50,15 @@ public final class Movie { //final klass, kan inte ärvas
 		//antal filmer 1975
 		public static int amountOfMovies (List < Movie > movieList) {
 
-			return (int) movieList.stream().count();
+			return (int) movieList.stream().count(); //gör en stream av movieList. Räknar antal element i strömmen.
 		}
 
 		//Film med högst runtime
 		public static int highestRunTime (List < Movie > movieList) {
 
 			return movieList.stream()
-					.max(Comparator.comparingInt(Movie::getRuntime))
-					.map(Movie::getRuntime).orElse(0);
+					.max(Comparator.comparingInt(Movie::getRuntime))//hittar filmen med högsta speltiden
+					.map(Movie::getRuntime).orElse(0); //tar ut en int av speltiden. 0 om ingen film hittas
 
 		}
 
@@ -66,23 +66,26 @@ public final class Movie { //final klass, kan inte ärvas
 		public static int uniqueGenres (List < Movie > movieList) {
 
 			return (int) movieList.stream()
-					.map(movie -> movie.getGenres())
-					.flatMap(genres -> genres.stream())
-					.distinct()
-					.count();
+					.map(movie -> movie.getGenres())//en lista för varje genre för varje film
+					.flatMap(genres -> genres.stream())//plattar listan till en enda ström (genrer är flera)
+					.distinct() //tar bort dubletter
+					.count();//räknar unika genrer
 		}
 
-	public static UniqueSearchInterface languageSearch = (Movie movie) -> movie.getLanguages();
-	public static UniqueSearchInterface genreSearch = (Movie movie) -> movie.getGenres();
+
 
 
 		public static int uniqueSearch (List < Movie > movieList, UniqueSearchInterface extractor){
 			return (int) movieList.stream()
-					.map(movie -> extractor.extract(movie))
+					.map(movie -> extractor.extract(movie))//samma logik som övre
 					.flatMap(list -> list.stream())
 					.distinct()
 					.count();
 		}
+	//då de senaste två metoderna är väldigt lika skapade jag en högre ordningens funktion för dessa två.
+
+	public static UniqueSearchInterface languageSearch = (Movie movie) -> movie.getLanguages();
+	public static UniqueSearchInterface genreSearch = (Movie movie) -> movie.getGenres();
 
 		//Antal unika språk
 		public static int uniqueLanguages (List < Movie > movieList) {
@@ -98,17 +101,17 @@ public final class Movie { //final klass, kan inte ärvas
 		public static String leastAmountOfActors (List < Movie > movieList) {
 
 			return movieList.stream()
-					.min(Comparator.comparingInt(movie -> movie.getCast().size()))
-					.map(Movie::getTitle)
-					.orElse("");
+					.min(Comparator.comparingInt(movie -> movie.getCast().size()))//hittar film med minst antal skådisar
+					.map(movie -> movie.getTitle())//tar ut titeln
+					.orElse(""); //om ingen film existerar kommer det tillbaka en tom sträng
 		}
 
 		//skådisar i filmen med högst IMDB-rating
 		public static String highestIMDBRatingActors (List < Movie > movieList) {
 
 			return movieList.stream()
-					.max(Comparator.comparingDouble(Movie::getImdbRating))
-					.map(movie -> String.join(", ", movie.getCast()))
+					.max(Comparator.comparingDouble(movie -> movie.getImdbRating()))//hittar filmen med högst IMDB
+					.map(movie -> String.join(", ", movie.getCast()))//joinar skådislistan till en sträng
 					.orElse("");
 		}
 
@@ -137,9 +140,9 @@ public final class Movie { //final klass, kan inte ärvas
 		public static boolean duplicatedTitles (List < Movie > movieList) {
 
 			return movieList.stream()
-					.map(Movie::getTitle)
-					.collect(Collectors.groupingBy(title -> title, Collectors.counting()))
-					.values().stream().anyMatch(count -> count > 1);
+					.map(Movie::getTitle) //tar fram alla filmtitlar
+					.collect(Collectors.groupingBy(title -> title, Collectors.counting()))//räknar hur många ggr varje titel återkommer
+					.values().stream().anyMatch(count -> count > 1); //ommer tillbaka true om någon titel förekommer två gånger
 
 		}
 

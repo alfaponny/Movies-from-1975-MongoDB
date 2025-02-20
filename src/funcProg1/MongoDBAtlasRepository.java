@@ -50,11 +50,12 @@ public class MongoDBAtlasRepository {
 
 			System.out.println("Duplicated titles are : " + Movie.duplicatedTitles(movieList));
 
-			int uniqueGenreCount = Movie.uniqueSearch(movieList, Movie.genreSearch);
-			int uniqueLanguageCount = Movie.uniqueSearch(movieList, Movie.languageSearch);
 
-			System.out.println("Unique genres (Interface): " + uniqueGenreCount);
-			System.out.println("Unique languages (Interface): " + uniqueLanguageCount);
+			System.out.println("Unique genres (Interface): " + Movie.uniqueGenres(movieList));
+
+			System.out.println("Unique genres (Interface): " + Movie.uniqueLanguages(movieList));
+
+
 
 
 

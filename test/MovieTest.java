@@ -17,8 +17,7 @@ public class MovieTest {
 	void setUp() {
 
 		testMovies = List.of(
-				new Movie(
-						"tt0111161",
+				new Movie("tt0111161",
 						"The Shawshank Redemption",
 						1994,
 						List.of("Drama"),
@@ -29,8 +28,7 @@ public class MovieTest {
 						142
 				),
 
-				new Movie(
-						"tt0068646",
+				new Movie("tt0068646",
 						"The Godfather",
 						1972,
 						List.of("Crime", "Drama"),
@@ -41,8 +39,7 @@ public class MovieTest {
 						175
 				),
 
-				new Movie(
-						"tt1375666",
+				new Movie("tt1375666",
 						"Inception",
 						2010,
 						List.of("Action", "Sci-Fi", "Thriller"),
@@ -53,8 +50,7 @@ public class MovieTest {
 						148
 				),
 
-				new Movie(
-						"tt0120737",
+				new Movie("tt0120737",
 						"The Lord of the Rings",
 						2001,
 						List.of("Adventure", "Fantasy", "Drama"),
